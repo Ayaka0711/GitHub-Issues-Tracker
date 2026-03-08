@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Issues Tracker</title>
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body class="text-[#1f2328]">
+
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="flex justify-center items-center min-h-screen p-4">
+  <div class="bg-white p-8 rounded-lg shadow-md border border-[#d0d7de] w-full max-w-sm text-center">
+    <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" class="mx-auto mb-4 w-12">
+    <h1 class="text-2xl font-semibold mb-1">GitHub Issues Tracker</h1>
+    <p class="text-sm text-[#636c76] mb-6">Sign in to manage your issues</p>
+
+    <div class="text-left mb-4">
+      <label class="block text-sm font-medium mb-1">Username</label>
+      <input id="username" class="border border-[#d0d7de] rounded-md p-2 w-full" placeholder="Enter Username">
+    </div>
+
+    <div class="text-left mb-6">
+      <label class="block text-sm font-medium mb-1">Password</label>
+      <input id="password" type="password" class="border border-[#d0d7de] rounded-md p-2 w-full" placeholder="Enter Password">
+    </div>
+
+    <button onclick="login()" class="bg-purple-600 text-white font-semibold py-2 w-full rounded-md">
+      Sign In
+    </button>
+
+    <div class="mt-6 p-3 bg-[#f6f8fa] border text-xs text-[#636c76] rounded">
+      <p class="text-sm mb-2">Demo Credentials:</p>
+      <strong>Username :</strong> admin<br>
+      <strong>Password :</strong> admin123
+    </div>
+  </div>
+</div>
+
+<!-- MAIN PAGE -->
+<div id="mainPage" class="hidden min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-white text-black p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center flex-wrap gap-3">
+
+      <div class="flex items-center gap-3">
+        <img src="github-logo.png" class="w-8 h-8">
+        <h1 class="font-semibold text-lg">GitHub Issues Tracker</h1>
+      </div>
+
+      <div class="flex gap-2">
+        <input id="searchInput" placeholder="Search issues..." class="p-2 rounded text-black bg-white border border-gray-300">
+        <button onclick="searchIssues()" class="bg-purple-600 px-4 py-2 rounded text-white">
+          + New Issues
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="max-w-7xl mx-auto p-6 w-full">
+
+    <!-- Tabs -->
+    <div class="flex justify-between items-center flex-wrap gap-4 border-b pb-4 mb-6">
+      <div class="flex border rounded overflow-hidden bg-white">
+        <button class="text-white px-4 py-2 bg-purple-600" onclick="filterIssues('all',this)">All</button>
+        <button class="tabBtn px-4 py-2" onclick="filterIssues('open',this)">Open</button>
+        <button class="tabBtn px-4 py-2" onclick="filterIssues('closed',this)">Closed</button>
+      </div>
+
+      <div class="flex items-center gap-4 text-sm text-gray-600">
+        <div class="flex items-center gap-2">
+          <img src="Aperture.png" class="w-4 h-4">
+          <span id="issueCount">50 Issues</span>
+        </div>
+        <span class="text-green-600">● Open</span>
+        <span class="text-purple-600">● Closed</span>
+      </div>
+    </div>
+
+    <!-- Loading spinner -->
+    <div id="loading" class="hidden py-20">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Issue grid -->
+    <div id="issueContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+
+  </main>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+  <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl p-8">
+    <h2 id="modalTitle" class="text-3xl font-bold mb-4"></h2>
+    <div class="flex items-center gap-3 mb-6 text-sm text-gray-500">
+      <span id="modalStatus" class="px-3 py-1 text-white text-xs rounded-full bg-green-600">Opened</span>
+      <span>•</span>
+      <span>Opened by <strong id="modalAuthor"></strong></span>
+      <span>•</span>
+      <span id="modalDate"></span>
+    </div>
+
+    <div class="flex gap-2 mb-6">
+      <span id="modalLabel" class="bg-red-100 text-red-600 text-xs px-3 py-1 rounded-full">BUG</span>
+      <span class="bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full">HELP WANTED</span>
+    </div>
+
+    <p id="modalDesc" class="text-gray-600 mb-6 text-lg"></p>
+
+    <div class="bg-gray-100 rounded-lg p-6 flex justify-between items-center">
+      <div>
+        <p class="text-sm text-gray-500">Assignee:</p>
+        <p id="modalAssignee" class="font-semibold text-lg"></p>
+      </div>
+
+      <div>
+        <p class="text-sm text-gray-500">Priority:</p>
+        <span id="modalPriority" class="bg-red-500 text-white px-4 py-1 rounded-full text-sm">HIGH</span>
+      </div>
+    </div>
+
+    <div class="flex justify-end mt-8">
+      <button onclick="closeModal()" class="bg-purple-600 text-white px-6 py-2 rounded-md">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- JS -->
+<script src="script.js"></script>
+</body>
+</html>
