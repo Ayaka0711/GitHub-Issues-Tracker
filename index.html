@@ -5,10 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GitHub Issues Tracker</title>
 
-<!-- Tailwind CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Custom CSS -->
 <link rel="stylesheet" href="style.css">
 
 </head>
@@ -75,16 +73,30 @@
         <button class="tabBtn px-4 py-2" onclick="filterIssues('open',this)">Open</button>
         <button class="tabBtn px-4 py-2" onclick="filterIssues('closed',this)">Closed</button>
       </div>
+    </div>
+      <header class="bg-white text-black p-4">
+      <div class="max-w-7xl mx-auto flex justify-between items-center flex-wrap gap-3">
 
-      <div class="flex items-center gap-4 text-sm text-gray-600">
-        <div class="flex items-center gap-2">
-          <img src="Aperture.png" class="w-4 h-4">
-          <span id="issueCount">50 Issues</span>
-        </div>
-        <span class="text-green-600">● Open</span>
-        <span class="text-purple-600">● Closed</span>
+       <div class="flex flex-col items-start gap-1 text-sm text-gray-600">
+      <div class="flex items-center gap-2">
+        <img src="Aperture.png" class="w-4 h-4" alt="icon">
+        <span id="issueCount" class="font-semibold">50 Issues</span>
+      </div>
+      <p class="text-sm text-gray-500">Track and manage your project issues</p>
+      </div>
+    
+    <!-- Right: Open / Closed indicators -->
+    <div class="flex gap-4 text-sm font-medium text-gray-700">
+      <div class="flex items-center gap-1">
+        <span class="w-2.5 h-2.5 bg-green-500 rounded-full"></span>
+        <span>Open</span>
+      </div>
+      <div class="flex items-center gap-1">
+        <span class="w-2.5 h-2.5 bg-purple-500 rounded-full"></span>
+        <span>Closed</span>
       </div>
     </div>
+    </header>
 
     <!-- Loading spinner -->
     <div id="loading" class="hidden py-20">
@@ -95,14 +107,17 @@
     <div id="issueContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
 
   </main>
+     
 </div>
 
 <!-- Modal -->
 <div id="modal" class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
   <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl p-8">
     <h2 id="modalTitle" class="text-3xl font-bold mb-4"></h2>
+
     <div class="flex items-center gap-3 mb-6 text-sm text-gray-500">
-      <span id="modalStatus" class="px-3 py-1 text-white text-xs rounded-full bg-green-600">Opened</span>
+      <!-- Status text only -->
+      <span id="modalStatusText" class="px-2 py-0.5 text-white text-xs rounded-full bg-green-600">Opened</span>
       <span>•</span>
       <span>Opened by <strong id="modalAuthor"></strong></span>
       <span>•</span>
@@ -129,14 +144,11 @@
     </div>
 
     <div class="flex justify-end mt-8">
-      <button onclick="closeModal()" class="bg-purple-600 text-white px-6 py-2 rounded-md">
-        Close
-      </button>
+      <button onclick="closeModal()" class="bg-purple-600 text-white px-6 py-2 rounded-md">Close</button>
     </div>
   </div>
 </div>
 
-<!-- JS -->
 <script src="script.js"></script>
 </body>
 </html>

@@ -102,27 +102,25 @@ async function searchIssues(){
 }
 
 async function loadSingleIssue(id){
-  const res=await fetch(`${API}/issue/${id}`)
-  const data=await res.json()
-  const issue=data.data
+  const res = await fetch(`${API}/issue/${id}`);
+  const data = await res.json();
+  const issue = data.data;
 
-  document.getElementById("modalTitle").innerText=issue.title
-  document.getElementById("modalDesc").innerText=issue.description
-  document.getElementById("modalAuthor").innerText=issue.author
-  document.getElementById("modalAssignee").innerText=issue.author
-  document.getElementById("modalDate").innerText=new Date(issue.createdAt).toLocaleDateString()
-  document.getElementById("modalPriority").innerText=issue.priority || "HIGH"
-  document.getElementById("modalLabel").innerText=issue.label || "BUG"
+  document.getElementById("modalTitle").innerText = issue.title;
+  document.getElementById("modalDesc").innerText = issue.description;
+  document.getElementById("modalAuthor").innerText = issue.author;
+  document.getElementById("modalAssignee").innerText = issue.author;
+  document.getElementById("modalDate").innerText = new Date(issue.createdAt).toLocaleDateString();
+  document.getElementById("modalPriority").innerText = issue.priority || "HIGH";
+  document.getElementById("modalLabel").innerText = issue.label || "BUG";
 
-  const status=document.getElementById("modalStatus")
-  status.innerHTML=`<span class="inline-block w-3 h-3 rounded-full mr-1 
-  ${issue.status.toLowerCase()==='open'?'bg-green-500':'bg-purple-500'}"></span>
-  ${issue.status.toLowerCase()==="open"?"Opened":"Closed"}`
-  status.className="px-3 py-1 text-white text-xs rounded-full"
+  // Status text only
+  const statusColor = issue.status.toLowerCase() === 'open' ? 'bg-green-500' : 'bg-purple-500';
+  document.getElementById("modalStatusText").innerText = issue.status;
+  document.getElementById("modalStatusText").className = `px-2 py-0.5 text-white text-xs rounded-full ${statusColor}`;
 
-  document.getElementById("modal").classList.remove("hidden")
+  document.getElementById("modal").classList.remove("hidden");
 }
-
 function closeModal(){
   document.getElementById("modal").classList.add("hidden")
 }
