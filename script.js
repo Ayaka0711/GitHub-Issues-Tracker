@@ -89,11 +89,11 @@ function filterIssues(type, btn){
 
   // remove purple from all buttons
   document.querySelectorAll(".tabBtn").forEach(b=>{
-    b.classList.remove("bg-purple-600","text-white")
+    b.classList.remove("bg-[#4A00FF]","text-white")
   })
 
   // add purple to clicked button
-  btn.classList.add("bg-purple-600","text-white")
+  btn.classList.add("bg-[#4A00FF]","text-white")
 
   // filtering logic
   const filtered =
