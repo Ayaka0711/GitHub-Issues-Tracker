@@ -1,6 +1,6 @@
 **1. Difference between var, let, and const?**
 
-Answer:
+**Answer:**
 
 var : Function scoped. It can be redeclared and updated. Older way to declare variables.
 
@@ -16,7 +16,7 @@ const c = 30;
 
 **2️. What is the Spread Operator (...)?**
 
-Answer:
+**Answer:**
 
 The spread operator is used to expand elements of an array or object into another array or object.
 It helps to copy, merge, or pass elements easily.
@@ -24,7 +24,7 @@ It helps to copy, merge, or pass elements easily.
 
 **3️. Difference between map(), filter(), and forEach()?**
 
-Answer:
+**Answer:**
 
 map() : Creates a new array by applying a function to each element.
 
@@ -45,7 +45,7 @@ numbers.forEach(n => console.log(n));
 
 **4️. What is an Arrow Function?**
 
-Answer:
+**Answer:**
 
 An arrow function is a shorter way to write a function in JavaScript using =>.
 It makes code simpler and more readable.
@@ -57,7 +57,7 @@ const add = (a,b) => a + b;
 
 **5️. What are Template Literals?**
 
-Answer:
+**Answer:**
 
 Template literals are used to insert variables inside strings using backticks ( ) and ${}.
 They make string formatting easier.
