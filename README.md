@@ -37,7 +37,9 @@ Example:
 const numbers = [1,2,3];
 
 numbers.map(n => n*2);
+
 numbers.filter(n => n>1);
+
 numbers.forEach(n => console.log(n));
 
 
