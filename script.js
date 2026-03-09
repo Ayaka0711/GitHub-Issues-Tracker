@@ -35,11 +35,10 @@ function displayIssues(list){
     const card=document.createElement("div")
     card.className=`issue-card bg-white border ${border} rounded-lg p-4 shadow-sm relative`
 
-    // Status logo only
-  
-let statusLogo = isOpen ? "Open-Status.png" : "Closed- Status .png"; 
+    // Status logo
+    let statusLogo = isOpen ? "Open-Status.png" : "Closed- Status .png"; 
 
-const statusBadge = `<img src="${statusLogo}" alt="${isOpen ? 'Open' : 'Closed'} status" class="status-badge w-5 h-5">`;
+    const statusBadge = `<img src="${statusLogo}" alt="${isOpen ? 'Open' : 'Closed'} status" class="status-badge w-5 h-5">`;
 
     // Priority badge
     let priorityColor="bg-gray-400"
@@ -48,7 +47,37 @@ const statusBadge = `<img src="${statusLogo}" alt="${isOpen ? 'Open' : 'Closed'}
       else if(issue.priority.toLowerCase()==="medium") priorityColor="bg-yellow-500"
       else if(issue.priority.toLowerCase()==="low") priorityColor="bg-gray-400"
     }
+
     const priorityBadge=`<span class="priority-badge ${priorityColor}">${issue.priority || "HIGH"}</span>`
+
+    // Generate labels from API
+    let labelsHTML=""
+
+    if(issue.labels && issue.labels.length){
+      issue.labels.forEach(label=>{
+
+        let labelClass="bg-red-100 text-red-600"
+
+        if(label==="enhancement"){
+          labelClass="bg-[#BBF7D0] text-[#00A96E]"
+        }
+        else if(label==="good first issue"){
+          labelClass="bg-sky-100 text-blue-600"
+        }
+        else if(label==="documentation"){
+          labelClass="bg-gray-200 text-black"
+        }
+        else if(label==="help wanted"){
+          labelClass="bg-yellow-100 text-yellow-700"
+        }
+
+        labelsHTML+=`
+          <span class="${labelClass} text-xs px-3 py-1 rounded-full">
+            ${label.toUpperCase()}
+          </span>
+        `
+      })
+    }
 
     card.innerHTML=`
       ${statusBadge}
@@ -65,12 +94,7 @@ const statusBadge = `<img src="${statusLogo}" alt="${isOpen ? 'Open' : 'Closed'}
 
       <!-- LABEL BUTTONS -->
       <div class="flex gap-2 mb-3">
-        <span class="bg-red-100 text-red-600 text-xs px-3 py-1 rounded-full">
-          ${issue.label || "BUG"}
-        </span>
-        <span class="bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full">
-          HELP WANTED
-        </span>
+        ${labelsHTML}
       </div>
 
       <!-- AUTHOR & DATE -->
@@ -87,15 +111,12 @@ const statusBadge = `<img src="${statusLogo}" alt="${isOpen ? 'Open' : 'Closed'}
 
 function filterIssues(type, btn){
 
-  // remove purple from all buttons
   document.querySelectorAll(".tabBtn").forEach(b=>{
     b.classList.remove("bg-[#4A00FF]","text-white")
   })
 
-  // add purple to clicked button
   btn.classList.add("bg-[#4A00FF]","text-white")
 
-  // filtering logic
   const filtered =
     type === "all"
       ? allIssues
@@ -107,10 +128,14 @@ function filterIssues(type, btn){
 async function searchIssues(){
   const q=document.getElementById("searchInput").value.trim()
   if(!q){ displayIssues(allIssues); return }
+
   document.getElementById("loading").classList.remove("hidden")
+
   const res=await fetch(`${API}/issues/search?q=${q}`)
   const data=await res.json()
+
   displayIssues(data.data)
+
   document.getElementById("loading").classList.add("hidden")
 }
 
@@ -125,15 +150,16 @@ async function loadSingleIssue(id){
   document.getElementById("modalAssignee").innerText = issue.author;
   document.getElementById("modalDate").innerText = new Date(issue.createdAt).toLocaleDateString();
   document.getElementById("modalPriority").innerText = issue.priority || "HIGH";
-  document.getElementById("modalLabel").innerText = issue.label || "BUG";
+  document.getElementById("modalLabel").innerText = issue.labels ? issue.labels.join(", ") : "BUG";
 
-  // Status text only
   const statusColor = issue.status.toLowerCase() === 'open' ? 'bg-green-500' : 'bg-purple-500';
+
   document.getElementById("modalStatusText").innerText = issue.status;
   document.getElementById("modalStatusText").className = `px-2 py-0.5 text-white text-xs rounded-full ${statusColor}`;
 
   document.getElementById("modal").classList.remove("hidden");
 }
+
 function closeModal(){
   document.getElementById("modal").classList.add("hidden")
 }
