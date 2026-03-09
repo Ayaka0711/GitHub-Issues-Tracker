@@ -85,10 +85,23 @@ const statusBadge = `<img src="${statusLogo}" alt="${isOpen ? 'Open' : 'Closed'}
   })
 }
 
-function filterIssues(type,btn){
-  document.querySelectorAll(".tabBtn").forEach(b=>b.classList.remove("bg-gray-100"))
-  btn.classList.add("bg-gray-100")
-  displayIssues(type==="all" ? allIssues : allIssues.filter(i=>i.status.toLowerCase()===type))
+function filterIssues(type, btn){
+
+  // remove purple from all buttons
+  document.querySelectorAll(".tabBtn").forEach(b=>{
+    b.classList.remove("bg-purple-600","text-white")
+  })
+
+  // add purple to clicked button
+  btn.classList.add("bg-purple-600","text-white")
+
+  // filtering logic
+  const filtered =
+    type === "all"
+      ? allIssues
+      : allIssues.filter(issue => issue.status.toLowerCase() === type)
+
+  displayIssues(filtered)
 }
 
 async function searchIssues(){
