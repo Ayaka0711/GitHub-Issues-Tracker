@@ -125,21 +125,7 @@ function filterIssues(type, btn){
   displayIssues(filtered)
 }
 
-async function searchIssues(){
-  const q=document.getElementById("searchInput").value.trim()
-  if(!q){ displayIssues(allIssues); return }
-
-  document.getElementById("loading").classList.remove("hidden")
-
-  const res=await fetch(`${API}/issues/search?q=${q}`)
-  const data=await res.json()
-
-  displayIssues(data.data)
-
-  document.getElementById("loading").classList.add("hidden")
-}
-
-async function loadSingleIssue(id){
+async function loadSingleIssue(id) {
   const res = await fetch(`${API}/issue/${id}`);
   const data = await res.json();
   const issue = data.data;
@@ -147,15 +133,55 @@ async function loadSingleIssue(id){
   document.getElementById("modalTitle").innerText = issue.title;
   document.getElementById("modalDesc").innerText = issue.description;
   document.getElementById("modalAuthor").innerText = issue.author;
-  document.getElementById("modalAssignee").innerText = issue.author;
+  document.getElementById("modalAssignee").innerText = issue.assignee || "Unassigned";
   document.getElementById("modalDate").innerText = new Date(issue.createdAt).toLocaleDateString();
   document.getElementById("modalPriority").innerText = issue.priority || "HIGH";
-  document.getElementById("modalLabel").innerText = issue.labels ? issue.labels.join(", ") : "BUG";
 
-  const statusColor = issue.status.toLowerCase() === 'open' ? 'bg-green-500' : 'bg-purple-500';
+  const labelContainer = document.getElementById("modalLabel");
+labelContainer.innerHTML = "";
 
-  document.getElementById("modalStatusText").innerText = issue.status;
-  document.getElementById("modalStatusText").className = `px-2 py-0.5 text-white text-xs rounded-full ${statusColor}`;
+if (issue.labels && issue.labels.length) {
+
+  issue.labels.forEach(label => {
+
+    const span = document.createElement("span");
+    span.innerText = label.toUpperCase();
+
+    let labelClass = "text-xs px-3 py-1 rounded-full mr-2 ";
+
+    if (label.toLowerCase() === "enhancement") {
+      labelClass += "bg-[#BBF7D0] text-[#00A96E]";
+    }
+    else if (label.toLowerCase() === "good first issue") {
+      labelClass += "bg-sky-100 text-blue-600";
+    }
+    else if (label.toLowerCase() === "documentation") {
+      labelClass += "bg-gray-200 text-black";
+    }
+    else if (label.toLowerCase() === "help wanted") {
+      labelClass += "bg-yellow-100 text-yellow-700";
+    }
+    else {
+      labelClass += "bg-red-100 text-red-600";
+    }
+
+    span.className = labelClass;
+    labelContainer.appendChild(span);
+
+  });
+
+} 
+else {
+
+  const span = document.createElement("span");
+  span.innerText = "BUG";
+  span.className = "text-xs px-3 py-1 rounded-full bg-red-100 text-red-600";
+  labelContainer.appendChild(span);
+
+}  const statusColor = issue.status.toLowerCase() === "open" ? "bg-green-500" : "bg-purple-500";
+  const statusElem = document.getElementById("modalStatusText");
+  statusElem.innerText = issue.status;
+  statusElem.className = `px-2 py-0.5 text-white text-xs rounded-full ${statusColor}`;
 
   document.getElementById("modal").classList.remove("hidden");
 }

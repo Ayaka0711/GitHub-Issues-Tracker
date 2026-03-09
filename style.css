@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 body{
-  font-family:'Inter',sans-serif;
-  background:#f6f8fa;
+  font-family:'Inter', sans-serif;
+  background-color:#f6f8fa;
 }
 
 .issue-card{
-  transition:all .2s;
-  cursor:pointer;
   position:relative;
+  cursor:pointer;
+  transition:0.2s;
 }
 
 .issue-card:hover{
@@ -16,20 +16,21 @@ body{
 }
 
 .spinner{
+  width:40px;
+  height:40px;
   border:4px solid #eee;
   border-top:4px solid #1f883d;
   border-radius:50%;
-  width:40px;
-  height:40px;
-  animation:spin 1s linear infinite;
   margin:auto;
+  animation:spin 1s linear infinite;
 }
 
 @keyframes spin{
-  100%{transform:rotate(360deg)}
+  100%{
+    transform:rotate(360deg);
+  }
 }
 
-/* Top-right priority badge */
 .priority-badge{
   position:absolute;
   top:8px;
@@ -41,7 +42,6 @@ body{
   color:white;
 }
 
-/* Top-left status logo only */
 .status-badge{
   position:absolute;
   top:8px;

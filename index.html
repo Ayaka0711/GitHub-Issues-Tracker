@@ -127,21 +127,19 @@
 <!-- Modal -->
 <div id="modal" class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
   <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl p-8">
+
     <h2 id="modalTitle" class="text-3xl font-bold mb-4"></h2>
 
     <div class="flex items-center gap-3 mb-6 text-sm text-gray-500">
-      <!-- Status text only -->
-      <span id="modalStatusText" class="px-2 py-0.5 text-white text-xs rounded-full bg-green-600">Opened</span>
+      <span id="modalStatusText" class="px-2 py-0.5 text-white text-xs rounded-full bg-green-600"></span>
       <span>•</span>
       <span>Opened by <strong id="modalAuthor"></strong></span>
       <span>•</span>
       <span id="modalDate"></span>
     </div>
 
-    <div class="flex gap-2 mb-6">
-      <span id="modalLabel" class="bg-red-100 text-red-600 text-xs px-3 py-1 rounded-full">BUG</span>
-      <span class="bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full">HELP WANTED</span>
-    </div>
+    <!-- Labels -->
+    <div id="modalLabel" class="flex gap-2 mb-6"></div>
 
     <p id="modalDesc" class="text-gray-600 mb-6 text-lg"></p>
 
@@ -152,17 +150,21 @@
       </div>
 
       <div>
+        <div>
         <p class="text-sm text-gray-500">Priority:</p>
         <span id="modalPriority" class="bg-red-500 text-white px-4 py-1 rounded-full text-sm">HIGH</span>
+      </div>
       </div>
     </div>
 
     <div class="flex justify-end mt-8">
       <button onclick="closeModal()" class="bg-[#4A00FF] text-white px-6 py-2 rounded-md">Close</button>
     </div>
+
   </div>
 </div>
 
 <script src="script.js"></script>
 </body>
+
 </html>
