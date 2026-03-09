@@ -1,4 +1,4 @@
-1. Difference between var, let, and const?
+**1. Difference between var, let, and const?**
 
 Answer:
 
@@ -14,7 +14,7 @@ let b = 20;
 const c = 30;
 
 
-2️. What is the Spread Operator (...)?
+**2️. What is the Spread Operator (...)?**
 
 Answer:
 
@@ -22,7 +22,7 @@ The spread operator is used to expand elements of an array or object into anothe
 It helps to copy, merge, or pass elements easily.
 
 
-3️. Difference between map(), filter(), and forEach()?
+**3️. Difference between map(), filter(), and forEach()?**
 
 Answer:
 
@@ -43,7 +43,7 @@ numbers.filter(n => n>1);
 numbers.forEach(n => console.log(n));
 
 
-4️. What is an Arrow Function?
+**4️. What is an Arrow Function?**
 
 Answer:
 
@@ -55,7 +55,7 @@ Example:
 const add = (a,b) => a + b;
 
 
-5️. What are Template Literals?
+**5️. What are Template Literals?**
 
 Answer:
 
